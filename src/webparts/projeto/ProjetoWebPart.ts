@@ -9,6 +9,7 @@ import * as strings from 'ProjetoWebPartStrings';
 
 import Container from './components/Container/Container';
 import { IContainerProps } from './components/Container/iContainerProps';
+import { sp } from "@pnp/sp/presets/all";
 
 export interface IProjetoWebPartProps {
   idLista: string;
@@ -29,6 +30,16 @@ export default class ProjetoWebPart extends BaseClientSideWebPart<IProjetoWebPar
   }
 
   protected onInit(): Promise<void> {
+
+    sp.setup({
+      sp: {
+        headers:{
+          Accept: 'application/json;odata=verbose'
+        },
+        baseUrl: this.context.pageContext.web.absoluteUrl
+      }
+    })
+
     return super.onInit();
   }
 

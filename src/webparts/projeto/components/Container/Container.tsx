@@ -22,7 +22,7 @@ const Container: React.FunctionComponent<IContainerProps> = (props) => {
             <div>
                 {/* Verifica se a tab selecionada é a de cadastro  */}
                 { selectedTab === "tabCadastro" && <h1>Cadastro</h1>}
-                { selectedTab ==="tabVisualizacao" && <h1><ViewReceitas>
+                { selectedTab ==="tabVisualizacao" && <h1><ViewReceitas receitaIdList={props.idLista}>
                     
                     </ViewReceitas></h1>}
             </div>
