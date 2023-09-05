@@ -1,10 +1,22 @@
 import * as React from 'react';
 import { IContainerProps } from './iContainerProps';
-import { FluentProvider, TabList, Tab, TabValue, SelectTabData, SelectTabEvent } from "@fluentui/react-components"
+import { FluentProvider, TabList, Tab, TabValue, SelectTabData, SelectTabEvent, makeStyles } from "@fluentui/react-components"
 import { lightTheme } from '../../theme/Theme';
 import ViewReceitas from '../View/Receita/Receitas';
+import IncludeReceitas from '../Include/Receitas/Receitas';
+
+const useStyles = makeStyles({
+    centralizacao:{
+        display: "flex",
+        flexWrap: "nowrap",
+        justifyContent: "space-evenly",
+        flexDirection: "row",
+        alignItems: "center"}
+    });
 
 const Container: React.FunctionComponent<IContainerProps> = (props) => {
+
+    const styles = useStyles();
     // Define em qual aba o usuario vai comecar
     const [selectedTab, setSelectedTab] = React.useState<TabValue>("tabVisualizacao")
 
@@ -13,15 +25,16 @@ const Container: React.FunctionComponent<IContainerProps> = (props) => {
         setSelectedTab(data.value)
     }
 
+
     return(
-        <FluentProvider theme={lightTheme}>
+        <FluentProvider theme={lightTheme} className={styles.centralizacao}>
             <TabList defaultSelectedValue={selectedTab} onTabSelect={onTabSelected}>
                 <Tab value="tabVisualizacao">Visualização de Receita</Tab>
                 <Tab value="tabCadastro">Cadastro de Receita</Tab>
             </TabList>
-            <div>
+            <div >
                 {/* Verifica se a tab selecionada é a de cadastro  */}
-                { selectedTab === "tabCadastro" && <h1>Cadastro</h1>}
+                { selectedTab === "tabCadastro" && <IncludeReceitas receitaIdList={props.idLista}/>}
                 { selectedTab ==="tabVisualizacao" && <h1><ViewReceitas receitaIdList={props.idLista}>
                     
                     </ViewReceitas></h1>}
